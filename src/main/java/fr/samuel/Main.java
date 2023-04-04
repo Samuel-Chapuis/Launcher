@@ -1,19 +1,21 @@
 package fr.samuel;
 
+import javafx.application.Application;
+
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
-
-        System.out.println("Merci Kerian !!");
-        System.out.println("Merci Kerian !!");
-        System.out.println("Merci Kerian !!");
-        System.out.println("Merci Kerian !!");
-        System.out.println("Merci Kerian !!");
-        System.out.println("Merci Kerian !!");
-
-
+        try{
+            Class.forName("javafx.application.Application");
+            Application.launch(fr.samuel.Launcher.class, args);
+        }catch (ClassNotFoundException e){
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Erreur \n" + e.getMessage() + "not found",
+                    "Erreur",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 }
