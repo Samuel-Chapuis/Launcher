@@ -5,7 +5,6 @@ import javafx.scene.Node;
 public interface IMovable {
     void setLeft(Node node);
     void setRight(Node node);
-    void setStop(Node node);
     void setTop(Node node);
     void setBottom(Node node);
     void setBaseLine(Node node);

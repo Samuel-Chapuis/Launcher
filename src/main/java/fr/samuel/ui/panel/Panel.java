@@ -20,7 +20,7 @@ public abstract class Panel implements IPanel, IMovable, ItakePlace {
     }
 
     @Override
-    public void inti(PanelManager panelManager) {
+    public void init(PanelManager panelManager) {
         this.panelManager = panelManager;
         setCanTakeAllSize(this.layout);
     }
@@ -39,8 +39,14 @@ public abstract class Panel implements IPanel, IMovable, ItakePlace {
         transition.play();
     }
 
+
     @Override
-    public abstract String getname();
+    public abstract String getName();
+
+    @Override
+    public String getStylesheetPath() {
+        return null;
+    }
 
     @Override
     public void setLeft(Node node) {
@@ -76,4 +82,5 @@ public abstract class Panel implements IPanel, IMovable, ItakePlace {
     public void setCenterV(Node node) {
         GridPane.setValignment(node, VPos.CENTER);
     }
+
 }

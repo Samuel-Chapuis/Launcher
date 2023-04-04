@@ -1,9 +1,14 @@
 package fr.samuel.ui;
 
+import fr.flowarg.flowcompat.Platform;
 import fr.samuel.Launcher;
+import fr.samuel.ui.panel.IPanel;
+//import fr.samuel.ui.panels.partials.TopBar;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -11,6 +16,9 @@ public class PanelManager {
     private final Launcher launcher;
     private final Stage stage;
     private GridPane layout;
+    //private final TopBar topBar = new TopBar();
+    private final GridPane contentPane = new GridPane();
+
 
 
     public PanelManager(Launcher launcher, Stage stage){
@@ -24,14 +32,42 @@ public class PanelManager {
         this.stage.setMinHeight(480);
         this.stage.setWidth(1280);
         this.stage.setHeight(720);
-        this.stage.initStyle(StageStyle.UNDECORATED);
+        this.stage.initStyle(StageStyle.DECORATED);
         this.stage.centerOnScreen();
         this.stage.getIcons().add(new Image("images/icon.png"));
 
         this.layout = new GridPane();
 
-        Scene scene = new Scene(this.layout);
-        this.stage.setScene(scene);
-        this.stage.show();
+        if (Platform.isOnLinux()) {
+            Scene scene = new Scene(this.layout);
+            this.stage.setScene(scene);
+        } else {
+            Scene scene = new Scene(this.layout);
+            this.stage.setScene(scene);
+            this.stage.show();
+
+            RowConstraints topPaneConstraints = new RowConstraints();
+            topPaneConstraints.setValignment(VPos.TOP);
+            topPaneConstraints.setMinHeight(25);
+            topPaneConstraints.setMaxHeight(25);
+            this.layout.getRowConstraints().addAll(topPaneConstraints, new RowConstraints());
+            //this.layout.add(this.topBar.getLayout(), 0, 0);
+            //this.topBar.init(this);
+        }
     }
+
+    public void showPanel(IPanel panel){
+        this.contentPane.getChildren().clear();
+        this.contentPane.getChildren().add(panel.getLayout());
+        panel.init(this);
+        panel.onShow();
+    }
+
+   public Stage getStage(){
+        return stage;
+   }
+
+   public Launcher getLauncher(){
+        return launcher;
+   }
 }
