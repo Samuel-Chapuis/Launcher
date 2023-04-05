@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: '*.jar')
+
     implementation 'fr.litarvan:openauth:1+'
     implementation 'de.jensd:fontawesomefx-fontawesome:4+'
 
